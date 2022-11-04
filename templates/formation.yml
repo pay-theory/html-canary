@@ -27,8 +27,8 @@ Resources:
     Properties:
       Name: !If [ 
         isStandard, 
-        !Sub "${Partner}.html.example.${Stage}.com", 
-        !Sub "${Partner}${TargetMode}.html.example.${Stage}.com" ]
+        !Sub "${Partner}.html.canary.${Stage}.com", 
+        !Sub "${Partner}${TargetMode}.html.canary.${Stage}.com" ]
 
   V2Route53NSRecordUpdater:
     Type: Custom::NSRecordUpdater
@@ -37,8 +37,8 @@ Resources:
       DomainName: !Sub '${Stage}.com'
       SubdomainName: !If [ 
         isStandard, 
-        !Sub "${Partner}.html.example.${Stage}.com", 
-        !Sub "${Partner}${TargetMode}.html.example.${Stage}.com" ]
+        !Sub "${Partner}.html.canary.${Stage}.com", 
+        !Sub "${Partner}${TargetMode}.html.canary.${Stage}.com" ]
       NameServersList: !GetAtt "V2HostedZone.NameServers"
 
   V2Certificate:
@@ -49,8 +49,8 @@ Resources:
       ServiceToken: !Sub '{{resolve:ssm:certificate-validator-lambda-arn}}'
       DomainName: !If [ 
         isStandard, 
-        !Sub "${Partner}.html.example.${Stage}.com", 
-        !Sub "${Partner}${TargetMode}.html.example.${Stage}.com" ]
+        !Sub "${Partner}.html.canary.${Stage}.com", 
+        !Sub "${Partner}${TargetMode}.html.canary.${Stage}.com" ]
 
   V2CertificateValidator:
     Type: Custom::CertificateValidator
@@ -101,8 +101,8 @@ Resources:
         Aliases:
           - !If [ 
         isStandard, 
-        !Sub "${Partner}.html.example.${Stage}.com", 
-        !Sub "${Partner}${TargetMode}.html.example.${Stage}.com" ]
+        !Sub "${Partner}.html.canary.${Stage}.com", 
+        !Sub "${Partner}${TargetMode}.html.canary.${Stage}.com" ]
         CustomErrorResponses:
           -
             ErrorCachingMinTTL: 15
@@ -143,8 +143,8 @@ Resources:
         -
           Name: !If [ 
         isStandard, 
-        !Sub "${Partner}.html.example.${Stage}.com", 
-        !Sub "${Partner}${TargetMode}.html.example.${Stage}.com" ]
+        !Sub "${Partner}.html.canary.${Stage}.com", 
+        !Sub "${Partner}${TargetMode}.html.canary.${Stage}.com" ]
           Type: A
           AliasTarget:
             HostedZoneId: Z2FDTNDATAQYW2
