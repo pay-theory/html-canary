@@ -10,7 +10,7 @@ Parameters:
   Repository:
     Type: String
     Description: The repository you are deploying from.
-    Default: html-demo     
+    Default: html-canary     
   TargetMode:
     Type: String
     Description: The Deployment Mode

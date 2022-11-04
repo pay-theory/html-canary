@@ -6,7 +6,7 @@ phases:
       nodejs: latest
   pre_build:
     commands:      
-      - export SERVICE_NAME=html-demo
+      - export SERVICE_NAME=html-canary
       - export SERVICE_TYPE=example
       - export TARGET_REGION=$AWS_REGION
       - export TARGET_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)      
