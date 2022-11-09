@@ -1,5 +1,5 @@
 {
-  "name": "html-demo",
+  "name": "html-canary",
   "version": "1.0.0",
   "description": "a demonstration of Pay Theory's JavaScript SDK in simple HTML",
   "main": "index.html",
@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pay-theory/html-demo.git"
+    "url": "git+https://github.com/pay-theory/html-canary.git"
   },
   "author": "Aron Price",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pay-theory/html-demo/issues"
+    "url": "https://github.com/pay-theory/html-canary/issues"
   },
-  "homepage": "https://github.com/pay-theory/html-demo#readme"
+  "homepage": "https://github.com/pay-theory/html-canary#readme"
 }
