@@ -24,10 +24,10 @@ echo "Validating the cfn templates $(date) in $(pwd)" ;
 sam validate -t ./templates/formation.yml ;
 echo "Starting SAM build $(date) in $(pwd)" ;
 
-aws s3 cp public s3://html-canary-"${TARGET_ACCOUNT_ID}"-"${PARTNER}"-"${STAGE}" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --recursive
+aws s3 cp public s3://"${SERVICE_NAME}"-"${TARGET_ACCOUNT_ID}"-"${PARTNER}"-"${STAGE}" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --recursive
 
 sam deploy --template-file ./templates/formation.yml \
---stack-name html-example-"${PARTNER}"-"${STAGE}" \
+--stack-name "${SERVICE_NAME}"-"${PARTNER}"-"${STAGE}" \
 --region "${TARGET_REGION}" \
 --capabilities CAPABILITY_IAM \
 --no-fail-on-empty-changeset \
@@ -35,5 +35,3 @@ sam deploy --template-file ./templates/formation.yml \
 ParameterKey=Partner,ParameterValue="${PARTNER}" \
 ParameterKey=Stage,ParameterValue="${STAGE}" \
 ParameterKey=TargetMode,ParameterValue="${TARGET_MODE}"
-
-if ! [ -z ${DISTRIBUTION+x} ]; then aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION" --paths "/*" ; fi;
