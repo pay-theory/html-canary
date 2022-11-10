@@ -24,12 +24,12 @@ echo "Validating the cfn templates $(date) in $(pwd)" ;
 sam validate -t ./templates/formation.yml ;
 echo "Starting SAM build $(date) in $(pwd)" ;
 
-aws s3 cp public s3://html-demo-"${TARGET_ACCOUNT_ID}"-"${PARTNER}"-"${STAGE}" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --recursive
+aws s3 cp public s3://"${SERVICE_NAME}"-"${TARGET_ACCOUNT_ID}"-"${PARTNER}"-"${STAGE}" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --recursive
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 sam deploy --template-file ./templates/formation.yml \
---stack-name html-example-"${PARTNER}"-"${STAGE}" \
+--stack-name "${SERVICE_NAME}"-"${PARTNER}"-"${STAGE}" \
 --region "${TARGET_REGION}" \
 --capabilities CAPABILITY_IAM \
 --no-fail-on-empty-changeset \
@@ -44,5 +44,3 @@ if grep -i -q -E "error|failed|UPDATE_ROLLBACK_COMPLETE" "${SCRIPT_DIR}"/error_c
 else
     echo "No errors or failures found"
 fi
-
-if ! [ -z ${DISTRIBUTION+x} ]; then aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION" --paths "/*" ; fi;
