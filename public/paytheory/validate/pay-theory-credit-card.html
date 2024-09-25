@@ -1,7 +1,7 @@
 <html>
 
     <head>
-        <script src="https://zippslip.sdk.paytheorylab.com/index.js"></script>
+        <script src="https://validate.sdk.paytheory.com/index.js"></script>
         <style>
             #main,
             form {
@@ -23,12 +23,14 @@
             </div>
             <div id="result-text" />
             <div><em>you must replace YOUR-API-KEY in the URL to load the SDK</em></div>
+            <div id="loading-status" />
         </div>
         </div>
         <script type="text/javascript">
             // API KEY is required
             const urlParams = new URLSearchParams(window.location.search)
             const API_KEY = urlParams.get('api_key') ? urlParams.get('api_key') : 'NO_API_KEY_PROVIDED'
+            console.log('apikey',API_KEY)
             const AMOUNT = 5000
             const first_name = urlParams.get('first_name') ? urlParams.get('first_name') : 'Html'
             const last_name = urlParams.get('last_name') ? urlParams.get('last_name') : 'Demo'
@@ -56,13 +58,13 @@
             const TAGS = {}
             const FEE_MODE = window.paytheory.SURCHARGE
 
-
+            const paytheoryloadstart = Date.now()
             window.paytheory.create(
                     API_KEY,
                     STYLES,
                     TAGS,
                     FEE_MODE,
-                    'zippslip-paytheorylab')
+                    'validate-paytheory')
                 .then(myCreditCard => {
                     myCreditCard.mount()
 
@@ -70,6 +72,9 @@
                     myCreditCard.readyObserver(ready => {
                         console.log('ready', ready)
                         const paymentButton = document.getElementById('submit-payment')
+                        const loading = document.getElementById("loading-status");
+                        const paytheoryloadtime = Date.now() - paytheoryloadstart
+                        loading.textContent = `pay theory loading complete in ${paytheoryloadtime}`;
                         paymentButton
                             .addEventListener("click", (e) => {
                                 e.preventDefault();
